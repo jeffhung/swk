@@ -16,7 +16,7 @@ public:
 	{
 	}
 
-}; // class swk::mapper::context
+}; // class swk::mapper_context
 
 template <class IK, class IV,
           class OK, class OV,

@@ -13,6 +13,10 @@ class wordcount_mapper : swk::mapper<uint32_t, std::string,
 {
 public:
 
+	typedef swk::mapper<uint32_t, std::string,
+	                    std::string, uint32_t,
+	                    swk::fs_local>::context context;
+
 	void map(const uint32_t& key,
 	         const std::string& value,
 	         context& ctx)
