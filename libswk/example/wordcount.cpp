@@ -26,6 +26,7 @@ public:
 		for (std::vector<std::string>::const_iterator it = tokens.begin();
 		     it != tokens.end();
 		     ++it) {
+			SWK_DVAR(*it);
 			ctx.push(*it, 1);
 		}
 	}
@@ -55,9 +56,9 @@ int main()
 	try {
 		typedef swk::job<wordcount_mapper, wordcount_reducer> wordcount_job;
 		wordcount_job wc;
-		wc.add_input_path("input1.txt");
-		wc.add_input_path("input2.txt");
-		wc.add_input_path("input3.txt");
+		wc.add_input_path("data1.txt");
+		wc.add_input_path("data2.txt");
+		wc.add_input_path("data3.txt");
 		wc.set_output_dir("output");
 		wc.run();
 		return 0;
