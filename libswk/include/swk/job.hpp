@@ -27,7 +27,7 @@ public:
 	void run()
 	{
 		M m;
-		typename M::context ctx;
+		typename M::context mc;
 		for (std::vector<std::string>::const_iterator ip = input_paths.begin();
 		     ip != input_paths.end();
 		     ++ip) {
@@ -37,10 +37,10 @@ public:
 			while (std::getline(ic, line)) {
 				SWK_DOUT << line;
 				++no;
-				m.map(no, line, ctx);
+				m.map(no, line, mc);
 			}
 		}
-		SWK_DMVEC(ctx.outputs_);
+		SWK_DMVEC(mc.outputs_);
 	}
 
 private:
