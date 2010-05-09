@@ -33,16 +33,22 @@ public:
 
 }; // class wordcount
 
-class wordcount_reducer : swk::reducer<std::string, uint64_t,
-                                       std::string, uint64_t,
+class wordcount_reducer : swk::reducer<std::string, uint32_t,
+                                       std::string, uint32_t,
                                        swk::fs_local>
 {
+public:
+
+	typedef swk::reducer<std::string, uint32_t,
+	                     std::string, uint32_t,
+	                     swk::fs_local>::context context;
+
 	void reduce(const std::string& key,
-	            const std::vector<uint64_t>& values,
+	            const std::vector<uint32_t>& values,
 	            context& ctx)
 	{
-		uint64_t sum = 0;
-		for (std::vector<uint64_t>::const_iterator it = values.begin();
+		uint32_t sum = 0;
+		for (std::vector<uint32_t>::const_iterator it = values.begin();
 		     it != values.end();
 		     ++it) {
 			sum += *it;

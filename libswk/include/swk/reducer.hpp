@@ -17,7 +17,7 @@ public:
 	{
 	}
 
-}; // class swk::reducer::context
+}; // class swk::reducer_context
 
 template <class IK, class IV,
           class OK, class OV,
