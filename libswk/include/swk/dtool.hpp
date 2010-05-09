@@ -6,6 +6,7 @@
 
 namespace swk {
 
+inline
 std::ostream& dout1(const char* file, int line, std::ostream& out = std::cerr)
 {
 	out << file << "(" << line << "): ";
@@ -30,7 +31,7 @@ public:
 	dout2& operator << (const T& x)
 	{
 		buf_ << x;
-		print_();
+//		print_();
 		return *this;
 	}
 
@@ -56,6 +57,7 @@ private:
 } // namespace swk
 
 #define SWK_DOUT swk::dout2(__FILE__, __LINE__)
+#define SWK_DVAR(v) do { SWK_DOUT << "{" #v "} " << (v) << "~"; } while (false)
 
 #endif /* SWK_DTOOL_HPP_INCLUDED */
 

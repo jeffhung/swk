@@ -21,6 +21,7 @@ public:
 	         const std::string& value,
 	         context& ctx)
 	{
+		SWK_DOUT << value;
 		std::vector<std::string> tokens = swk::str_split(value);
 		for (std::vector<std::string>::const_iterator it = tokens.begin();
 		     it != tokens.end();

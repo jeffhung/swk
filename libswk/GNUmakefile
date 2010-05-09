@@ -77,6 +77,7 @@ LIBSWK_SRCS += swk.str_split
 LIBSWK_TESTS =#
 LIBSWK_TESTS += swk_config_test
 LIBSWK_TESTS += swk_dtool_test
+LIBSWK_TESTS += swk_str_split_test
 
 LIBSWK_EXAMPLES =#
 LIBSWK_EXAMPLES += wordcount

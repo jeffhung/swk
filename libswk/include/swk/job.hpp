@@ -34,7 +34,7 @@ public:
 			std::string line;
 			uint32_t no = 0;
 			while (std::getline(ic, line)) {
-				SWK_DOUT << line;
+//				SWK_DOUT << line;
 				++no;
 				m.map(no, line, ctx);
 			}
