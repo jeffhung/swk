@@ -2,6 +2,9 @@
 #define SWK_MAPPER_HPP_INCLUDED
 
 #include <swk/fs_local.hpp>
+#include <vector>
+#include <map>
+#include <utility>
 
 namespace swk {
 
@@ -10,11 +13,20 @@ template <class IK, class IV,
           class FS = fs_local>
 class mapper_context
 {
+private:
+
+	typedef std::map<OK, std::vector<OV> > outputs_type;
+
 public:
 
 	void push(const OK& ok, const OV& ov)
 	{
+		std::pair<typename outputs_type::iterator, bool> r
+			= outputs_.insert(make_pair(ok, std::vector<OV>()));
+		r.first->second.push_back(ov);
 	}
+
+	outputs_type outputs_;
 
 }; // class swk::mapper_context
 

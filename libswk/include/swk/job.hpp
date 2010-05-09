@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <stdint.h>
+#include <iostream>
 
 namespace swk {
 
@@ -39,6 +40,7 @@ public:
 				m.map(no, line, ctx);
 			}
 		}
+		SWK_DMVEC(ctx.outputs_);
 	}
 
 private:

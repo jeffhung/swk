@@ -27,7 +27,7 @@ public:
 		     it != tokens.end();
 		     ++it) {
 			SWK_DVAR(*it);
-			ctx.push(*it, 1);
+			ctx.push(*it, uint32_t(1));
 		}
 	}
 
