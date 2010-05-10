@@ -28,7 +28,7 @@ public:
 	{
 		M m;
 		typename M::context mc;
-		for (std::vector<std::string>::const_iterator ip = input_paths.begin();
+		for (std::vector<std::string>::const_iterator ip = input_paths.begin(); // ip: input path
 		     ip != input_paths.end();
 		     ++ip) {
 			typename FS::ichannel ic(ip->c_str());
@@ -41,6 +41,14 @@ public:
 			}
 		}
 		SWK_DMVEC(mc.outputs_);
+
+		R r;
+		typename R::context rc;
+		for (typename M::context::outputs_type::const_iterator me = mc.outputs_.begin(); // me: map entry
+		     me != mc.outputs_.end();
+		     ++me) {
+			r.reduce(me->first, me->second, rc);
+		}
 	}
 
 private:

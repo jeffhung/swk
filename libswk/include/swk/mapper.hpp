@@ -13,11 +13,9 @@ template <class IK, class IV,
           class FS = fs_local>
 class mapper_context
 {
-private:
+public:
 
 	typedef std::map<OK, std::vector<OV> > outputs_type;
-
-public:
 
 	void push(const OK& ok, const OV& ov)
 	{

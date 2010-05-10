@@ -1,6 +1,7 @@
 #ifndef SWK_REDUCER_HPP_INCLUDED
 #define SWK_REDUCER_HPP_INCLUDED
 
+#include <swk/dtool.hpp>
 #include <swk/fs_local.hpp>
 #include <vector>
 
@@ -15,6 +16,7 @@ public:
 
 	void push(const OK& ok, const OV& ov)
 	{
+		SWK_DOUT << ov << " <= " << ok;
 	}
 
 }; // class swk::reducer_context
