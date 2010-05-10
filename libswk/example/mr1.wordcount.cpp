@@ -60,8 +60,8 @@ public:
 int main()
 {
 	try {
-		typedef swk::mr1::job<wordcount_mapper, wordcount_reducer> wordcount_job;
-		wordcount_job wc;
+		typedef swk::mr1::job<wordcount_mapper, wordcount_reducer> job_type;
+		job_type wc;
 		wc.add_input_path("data1.txt");
 		wc.add_input_path("data2.txt");
 		wc.add_input_path("data3.txt");
