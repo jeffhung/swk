@@ -8,6 +8,7 @@
 #include <iostream>
 
 namespace swk {
+namespace mr1 {
 
 template <class M, class R, class FS = fs_local>
 class job
@@ -58,6 +59,7 @@ private:
 
 };
 
+} // namespace swk::mr1
 } // namespace swk
 
 #endif /* SWK_JOB_HPP_INCLUDED */

@@ -80,7 +80,7 @@ LIBSWK_TESTS += swk_dtool_test
 LIBSWK_TESTS += swk_str_split_test
 
 LIBSWK_EXAMPLES =#
-LIBSWK_EXAMPLES += wordcount
+LIBSWK_EXAMPLES += mr1.wordcount
 
 LIBSWK_STATIC_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).o)
 LIBSWK_SHARED_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).lo)
@@ -261,21 +261,21 @@ $(LIBDIR):
 
 define build_test_rule
 ifdef WITH_SHARED
-$(1): $(LIBDIR)/libswk$(DLL_EXT) $(basename $(1)).cpp #test/cli_test_main.cpp
-#	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(basename $(1)).cpp test/cli_test_main.cpp -Llib -lSWK $(LDFLAGS)
-	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(basename $(1)).cpp                        -Llib -lSWK $(LDFLAGS)
+$(1): $(LIBDIR)/libswk$(DLL_EXT) $(1).cpp #test/cli_test_main.cpp
+#	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(1).cpp test/cli_test_main.cpp -Llib -lSWK $(LDFLAGS)
+	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(1).cpp                        -Llib -lSWK $(LDFLAGS)
 else
-$(1): $(LIBDIR)/libswk$(LIB_EXT) $(basename $(1)).cpp #test/cli_test_main.cpp
+$(1): $(LIBDIR)/libswk$(LIB_EXT) $(1).cpp #test/cli_test_main.cpp
 ifeq ($(UNAME),Darwin)
 # According to gcc(1), the -static option will not work on Mac OS X unless
 # all libraries (including libgcc.a) have also been compiled with -static.
 # Since neither a static version of libSystem.dylib nor crt0.o are
 # provided, this option is not useful to most people.
-#	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp test/cli_test_main.cpp -Llib         -lswk $(LDFLAGS)
-	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp                        -Llib         -lswk $(LDFLAGS)
+#	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp test/cli_test_main.cpp -Llib         -lswk $(LDFLAGS)
+	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp                        -Llib         -lswk $(LDFLAGS)
 else
-#	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp test/cli_test_main.cpp -Llib -static -lswk $(LDFLAGS)
-	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp                        -Llib -static -lswk $(LDFLAGS)
+#	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp test/cli_test_main.cpp -Llib -static -lswk $(LDFLAGS)
+	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp                        -Llib -static -lswk $(LDFLAGS)
 endif
 endif
 endef
@@ -305,18 +305,18 @@ endif
 
 define build_example_rule
 ifdef WITH_SHARED
-$(1): $(LIBDIR)/libswk$(DLL_EXT) $(basename $(1)).cpp
-	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(basename $(1)).cpp -Llib -lSWK $(LDFLAGS)
+$(1): $(LIBDIR)/libswk$(DLL_EXT) $(1).cpp
+	$(CXX) -DUSE_SWK_DLL $(CXXFLAGS) -o $(1) $(1).cpp -Llib -lSWK $(LDFLAGS)
 else
-$(1): $(LIBDIR)/libswk$(LIB_EXT) $(basename $(1)).cpp
+$(1): $(LIBDIR)/libswk$(LIB_EXT) $(1).cpp
 ifeq ($(UNAME),Darwin)
 # According to gcc(1), the -static option will not work on Mac OS X unless
 # all libraries (including libgcc.a) have also been compiled with -static.
 # Since neither a static version of libSystem.dylib nor crt0.o are
 # provided, this option is not useful to most people.
-	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp -Llib         -lswk $(LDFLAGS)
+	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp -Llib         -lswk $(LDFLAGS)
 else
-	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(basename $(1)).cpp -Llib -static -lswk $(LDFLAGS)
+	$(CXX) -DUSE_SWK_LIB $(CXXFLAGS) -o $(1) $(1).cpp -Llib -static -lswk $(LDFLAGS)
 endif
 endif
 endef

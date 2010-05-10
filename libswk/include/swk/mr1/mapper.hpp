@@ -7,6 +7,7 @@
 #include <utility>
 
 namespace swk {
+namespace mr1 {
 
 template <class IK, class IV,
           class OK, class OV,
@@ -39,8 +40,9 @@ public:
 
 	virtual void map(const IK& key, const IV& value, context& ctx) = 0;
 
-}; // namespace swk::mapper
+}; // class swk::mapper
 
+} // namespace swk::mr1
 } // namespace swk
 
 #endif /* SWK_MAPPER_HPP_INCLUDED */

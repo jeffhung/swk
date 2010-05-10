@@ -1,21 +1,21 @@
-#include <swk/mapper.hpp>
-#include <swk/reducer.hpp>
-#include <swk/job.hpp>
+#include <swk/mr1/mapper.hpp>
+#include <swk/mr1/reducer.hpp>
+#include <swk/mr1/job.hpp>
 #include <swk/fs_local.hpp>
 #include <swk/str_split.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>
 
-class wordcount_mapper : swk::mapper<uint32_t, std::string,
-                                     std::string, uint32_t,
-                                     swk::fs_local>
+class wordcount_mapper : swk::mr1::mapper<uint32_t, std::string,
+                                          std::string, uint32_t,
+                                          swk::fs_local>
 {
 public:
 
-	typedef swk::mapper<uint32_t, std::string,
-	                    std::string, uint32_t,
-	                    swk::fs_local>::context context;
+	typedef swk::mr1::mapper<uint32_t, std::string,
+	                         std::string, uint32_t,
+	                         swk::fs_local>::context context;
 
 	void map(const uint32_t& key,
 	         const std::string& value,
@@ -33,15 +33,15 @@ public:
 
 }; // class wordcount
 
-class wordcount_reducer : swk::reducer<std::string, uint32_t,
-                                       std::string, uint32_t,
-                                       swk::fs_local>
+class wordcount_reducer : swk::mr1::reducer<std::string, uint32_t,
+                                            std::string, uint32_t,
+                                            swk::fs_local>
 {
 public:
 
-	typedef swk::reducer<std::string, uint32_t,
-	                     std::string, uint32_t,
-	                     swk::fs_local>::context context;
+	typedef swk::mr1::reducer<std::string, uint32_t,
+	                          std::string, uint32_t,
+	                          swk::fs_local>::context context;
 
 	void reduce(const std::string& key,
 	            const std::vector<uint32_t>& values,
@@ -60,7 +60,7 @@ public:
 int main()
 {
 	try {
-		typedef swk::job<wordcount_mapper, wordcount_reducer> wordcount_job;
+		typedef swk::mr1::job<wordcount_mapper, wordcount_reducer> wordcount_job;
 		wordcount_job wc;
 		wc.add_input_path("data1.txt");
 		wc.add_input_path("data2.txt");

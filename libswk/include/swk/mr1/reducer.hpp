@@ -6,6 +6,7 @@
 #include <vector>
 
 namespace swk {
+namespace mr1 {
 
 template <class IK, class IV,
           class OK, class OV,
@@ -34,8 +35,9 @@ public:
 	                    const std::vector<IV>& values,
 	                    context& ctx) = 0;
 
-}; // namespace swk::reducer
+}; // class swk::reducer
 
+} // namespace mr1
 } // namespace swk
 
 #endif /* SWK_REDUCER_HPP_INCLUDED */
