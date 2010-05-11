@@ -1,5 +1,5 @@
-#ifndef SWK_REDUCER_HPP_INCLUDED
-#define SWK_REDUCER_HPP_INCLUDED
+#ifndef SWK_MR1_REDUCER_HPP_INCLUDED
+#define SWK_MR1_REDUCER_HPP_INCLUDED
 
 #include <swk/dtool.hpp>
 #include <swk/fs_local.hpp>
@@ -40,6 +40,6 @@ public:
 } // namespace mr1
 } // namespace swk
 
-#endif /* SWK_REDUCER_HPP_INCLUDED */
+#endif /* SWK_MR1_REDUCER_HPP_INCLUDED */
 
 

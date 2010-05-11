@@ -1,5 +1,5 @@
-#ifndef SWK_JOB_HPP_INCLUDED
-#define SWK_JOB_HPP_INCLUDED
+#ifndef SWK_MR1_JOB_HPP_INCLUDED
+#define SWK_MR1_JOB_HPP_INCLUDED
 
 #include <swk/dtool.hpp>
 #include <string>
@@ -62,5 +62,5 @@ private:
 } // namespace swk::mr1
 } // namespace swk
 
-#endif /* SWK_JOB_HPP_INCLUDED */
+#endif /* SWK_MR1_JOB_HPP_INCLUDED */
 

@@ -1,5 +1,5 @@
-#ifndef SWK_MAPPER_HPP_INCLUDED
-#define SWK_MAPPER_HPP_INCLUDED
+#ifndef SWK_MR1_MAPPER_HPP_INCLUDED
+#define SWK_MR1_MAPPER_HPP_INCLUDED
 
 #include <swk/fs_local.hpp>
 #include <vector>
@@ -45,5 +45,5 @@ public:
 } // namespace swk::mr1
 } // namespace swk
 
-#endif /* SWK_MAPPER_HPP_INCLUDED */
+#endif /* SWK_MR1_MAPPER_HPP_INCLUDED */
 
