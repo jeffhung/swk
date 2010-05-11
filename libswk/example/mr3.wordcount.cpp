@@ -8,6 +8,7 @@
 #include <stdint.h>
 
 void wordcount_mapper(const uint32_t& key, const std::string& value,
+//                      swk::mr3::mapper_context<uint32_t, std::string, std::string, uint32_t>& ctx)
                       swk::mr3::mapper_context& ctx)
 {
 	SWK_DOUT << value;
@@ -21,6 +22,7 @@ void wordcount_mapper(const uint32_t& key, const std::string& value,
 }
 
 void wordcount_reducer(const std::string& key, const std::vector<uint32_t>& values,
+//                       swk::mr3::reducer_context<std::string, uint32_t, std::string, uint32_t>& ctx)
                        swk::mr3::reducer_context& ctx)
 {
 	uint32_t sum = 0;
@@ -35,7 +37,7 @@ void wordcount_reducer(const std::string& key, const std::vector<uint32_t>& valu
 int main()
 {
 	try {
-		std::auto_ptr<swk::mr3::job> wc(swk::mr3::make_job(
+		std::auto_ptr<swk::mr3::job> wc(swk::mr3::make_job<uint32_t, std::string, std::string, uint32_t>(
 			wordcount_mapper, wordcount_reducer
 		));
 		wc->add_input_path("data1.txt");
