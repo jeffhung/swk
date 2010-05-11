@@ -81,6 +81,7 @@ LIBSWK_TESTS += swk_str_split_test
 
 LIBSWK_EXAMPLES =#
 LIBSWK_EXAMPLES += mr1.wordcount
+LIBSWK_EXAMPLES += mr2.wordcount
 
 LIBSWK_STATIC_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).o)
 LIBSWK_SHARED_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).lo)
