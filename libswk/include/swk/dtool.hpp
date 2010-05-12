@@ -99,5 +99,7 @@ void dmvec(const char* name, const std::map<K, std::vector<T> >& m, std::ostream
 #define SWK_DMAP(m) swk::dmap(#m, (m))
 #define SWK_DMVEC(m) swk::dmvec(#m, (m))
 
+#define SWK_STATIC_ASSERT(expr)
+
 #endif /* SWK_DTOOL_HPP_INCLUDED */
 
