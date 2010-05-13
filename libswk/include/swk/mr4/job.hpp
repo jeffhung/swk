@@ -48,7 +48,6 @@ public:
 
 	void run()
 	{
-		mapper_type m;
 		mc_type mc;
 		for (std::vector<std::string>::const_iterator ip = input_paths.begin(); // ip: input path
 		     ip != input_paths.end();
@@ -59,7 +58,7 @@ public:
 			while (std::getline(ic, line)) {
 				SWK_DOUT << line;
 				++no;
-				m(no, line, mc);
+				mapper_type()(no, line, mc);
 			}
 		}
 		SWK_DMVEC(mc.mb_);
@@ -72,12 +71,11 @@ public:
 		typename rc_type::bucket_type rb = mc.mb_; // reducer bucket
 #endif
 
-		reducer_type r;
 		rc_type rc(rb);
 		for (rc_type::bucket_type::type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
 		     ri != rc.rb_.end();
 		     ++ri) {
-			r(ri->first, ri->second, rc);
+			reducer_type()(ri->first, ri->second, rc);
 		}
 	}
 
