@@ -2,6 +2,7 @@
 #define SWK_MR4_JOB_HPP_INCLUDED
 
 #include <swk/dtool.hpp>
+#include <boost/thread.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>
@@ -36,6 +37,12 @@ public:
 //		>::value
 //	);
 
+	job()
+		: num_mappers(2)
+		, num_reducers(1)
+	{
+	}
+
 	void add_input_path(const std::string& path)
 	{
 		input_paths.push_back(path);
@@ -44,6 +51,16 @@ public:
 	void set_output_dir(const std::string& dir)
 	{
 		output_dir = dir;
+	}
+
+	void set_num_mappers(size_t nm)
+	{
+		num_mappers = nm;
+	}
+
+	void set_num_reducers(size_t nr)
+	{
+		num_reducers = nr;
 	}
 
 	void run()
@@ -83,6 +100,8 @@ private:
 
 	std::vector<std::string> input_paths;
 	std::string output_dir;
+	size_t num_mappers;
+	size_t num_reducers;
 
 };
 

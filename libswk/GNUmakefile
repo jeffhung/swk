@@ -105,6 +105,9 @@ endif
 ifeq ($(UNAME),windows32)
 CFLAGS_INC_DIRS   += "$ProgramFiles\GnuWin32\include"
 endif
+ifeq ($(UNAME),Darwin)
+CFLAGS_INC_DIRS   += /opt/local/include
+endif
 #
 CFLAGS_DEFINES    =#
 ifeq ($(UNAME),windows32)
@@ -149,6 +152,7 @@ endif
 ifeq ($(UNAME),Darwin)
 LDFLAGS_LIB_DIRS += /usr/lib
 LDFLAGS_LIBS     += iconv
+LDFLAGS_LIB_DIRS += /opt/local/lib
 endif
 ifeq ($(UNAME),windows32)
 LDFLAGS_LIB_DIRS += "$ProgramFiles\GnuWin32\lib"
