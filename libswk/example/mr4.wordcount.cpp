@@ -7,11 +7,9 @@
 #include <vector>
 #include <stdint.h>
 
-class wordcount_mapper : public swk::mr2::mapper<uint32_t, std::string,
-                                                 std::string, uint32_t>
+struct wordcount_mapper : public swk::mr2::mapper<uint32_t, std::string,
+                                                  std::string, uint32_t>
 {
-public:
-
 	void operator()(const uint32_t& key,
 	                const std::string& value,
 	                context& ctx)
@@ -28,11 +26,9 @@ public:
 
 }; // class wordcount
 
-class wordcount_reducer : public swk::mr2::reducer<std::string, uint32_t,
-                                                   std::string, uint32_t>
+struct wordcount_reducer : public swk::mr2::reducer<std::string, uint32_t,
+                                                    std::string, uint32_t>
 {
-public:
-
 	void operator()(const std::string& key,
 	                const std::vector<uint32_t>& values,
 	                context& ctx)
