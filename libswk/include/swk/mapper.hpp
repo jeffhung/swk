@@ -1,14 +1,13 @@
-#ifndef SWK_MR4_MAPPER_HPP_INCLUDED
-#define SWK_MR4_MAPPER_HPP_INCLUDED
+#ifndef SWK_MAPPER_HPP_INCLUDED
+#define SWK_MAPPER_HPP_INCLUDED
 
 #include <swk/fs_local.hpp>
-#include <swk/mr4/bucket.hpp>
+#include <swk/bucket.hpp>
 #include <vector>
 #include <map>
 #include <utility>
 
 namespace swk {
-namespace mr4 {
 
 template <class IK, class IV, class OK, class OV>
 class mapper_context
@@ -49,8 +48,7 @@ public:
 
 }; // class swk::mapper
 
-} // namespace swk::mr4
 } // namespace swk
 
-#endif /* SWK_MR4_MAPPER_HPP_INCLUDED */
+#endif /* SWK_MAPPER_HPP_INCLUDED */
 

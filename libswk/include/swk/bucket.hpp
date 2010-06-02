@@ -1,11 +1,10 @@
-#ifndef SWK_MR4_BUCKET_HPP_INCLUDED
-#define SWK_MR4_BUCKET_HPP_INCLUDED
+#ifndef SWK_BUCKET_HPP_INCLUDED
+#define SWK_BUCKET_HPP_INCLUDED
 
 #include <vector>
 #include <map>
 
 namespace swk {
-namespace mr4 {
 
 /**
  * Bucket is the intermediate data package between mapper and reducer.
@@ -24,10 +23,9 @@ public:
 	typedef std::vector<bv_type> bvs_type; // bucket value set
 	typedef std::map<bk_type, bvs_type> type;
 
-}; // class swk::mr4::bucket
+}; // class swk::bucket
 
-} // namespace swk::mr4
 } // namespace swk
 
-#endif /* SWK_MR4_BUCKET_HPP_INCLUDED */
+#endif /* SWK_BUCKET_HPP_INCLUDED */
 

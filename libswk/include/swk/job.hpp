@@ -1,5 +1,5 @@
-#ifndef SWK_MR4_JOB_HPP_INCLUDED
-#define SWK_MR4_JOB_HPP_INCLUDED
+#ifndef SWK_JOB_HPP_INCLUDED
+#define SWK_JOB_HPP_INCLUDED
 
 #include <swk/dtool.hpp>
 #include <boost/thread.hpp>
@@ -9,7 +9,6 @@
 #include <iostream>
 
 namespace swk {
-namespace mr4 {
 
 template <class M, class R, class FS = fs_local>
 class job
@@ -103,10 +102,9 @@ private:
 	size_t num_mappers;
 	size_t num_reducers;
 
-};
+}; // class swk::job<>
 
-} // namespace swk::mr4
 } // namespace swk
 
-#endif /* SWK_MR4_JOB_HPP_INCLUDED */
+#endif /* SWK_JOB_HPP_INCLUDED */
 

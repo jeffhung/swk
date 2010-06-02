@@ -83,8 +83,8 @@ LIBSWK_EXAMPLES =#
 #LIBSWK_EXAMPLES += mr1.wordcount
 #LIBSWK_EXAMPLES += mr2.wordcount
 #LIBSWK_EXAMPLES += mr3.wordcount
-LIBSWK_EXAMPLES += mr4.wordcount
-LIBSWK_EXAMPLES += mr4.input_format
+LIBSWK_EXAMPLES += wordcount
+LIBSWK_EXAMPLES += input_format
 
 LIBSWK_STATIC_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).o)
 LIBSWK_SHARED_OBJS = $(foreach item,$(LIBSWK_SRCS),src/$(item).lo)

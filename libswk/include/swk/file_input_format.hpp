@@ -1,16 +1,15 @@
-#ifndef SWK_MR4_FILE_INPUT_FORMAT_HPP_INCLUDED
-#define SWK_MR4_FILE_INPUT_FORMAT_HPP_INCLUDED
+#ifndef SWK_FILE_INPUT_FORMAT_HPP_INCLUDED
+#define SWK_FILE_INPUT_FORMAT_HPP_INCLUDED
 
 #include <swk/config.hpp>
-#include <swk/mr4/file_traits.hpp>
-#include <swk/mr4/file_split.hpp>
+#include <swk/file_traits.hpp>
+#include <swk/file_split.hpp>
 #include <swk/fs_local.hpp>
 #include <string>
 #include <vector>
 #include <algorithm>
 
 namespace swk {
-namespace mr4 {
 
 /**
  * A section of an input file.
@@ -63,11 +62,10 @@ private:
 
 	std::vector<std::string> paths_;
 
-};
+}; // class swk::file_input_format<>
 
-} // namespace swk::mr4
 } // namespace swk
 
-#endif /* SWK_MR4_FILE_INPUT_FORMAT_HPP_INCLUDED */
+#endif /* SWK_FILE_INPUT_FORMAT_HPP_INCLUDED */
 
 

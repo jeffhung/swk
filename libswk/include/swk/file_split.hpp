@@ -1,12 +1,11 @@
-#ifndef SWK_MR4_FILE_SPLIT_HPP_INCLUDED
-#define SWK_MR4_FILE_SPLIT_HPP_INCLUDED
+#ifndef SWK_FILE_SPLIT_HPP_INCLUDED
+#define SWK_FILE_SPLIT_HPP_INCLUDED
 
 #include <string>
 #include <algorithm>
 #include <ostream>
 
 namespace swk {
-namespace mr4 {
 
 /**
  * A section of an input file.
@@ -60,7 +59,7 @@ private:
 	size_t start_;
 	size_t length_;
 
-}; // class swk::mr4::file_split
+}; // class swk::file_split
 
 std::ostream& operator << (std::ostream& os, const file_split& s)
 {
@@ -68,9 +67,8 @@ std::ostream& operator << (std::ostream& os, const file_split& s)
 	return os;
 }
 
-} // namespace swk::mr4
 } // namespace swk
 
-#endif /* SWK_MR4_FILE_SPLIT_HPP_INCLUDED */
+#endif /* SWK_FILE_SPLIT_HPP_INCLUDED */
 
 

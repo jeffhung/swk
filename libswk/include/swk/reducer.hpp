@@ -1,13 +1,12 @@
-#ifndef SWK_MR4_REDUCER_HPP_INCLUDED
-#define SWK_MR4_REDUCER_HPP_INCLUDED
+#ifndef SWK_REDUCER_HPP_INCLUDED
+#define SWK_REDUCER_HPP_INCLUDED
 
 #include <swk/dtool.hpp>
 #include <swk/fs_local.hpp>
-#include <swk/mr4/bucket.hpp>
+#include <swk/bucket.hpp>
 #include <vector>
 
 namespace swk {
-namespace mr4 {
 
 template <class IK, class IV, class OK, class OV>
 class reducer_context
@@ -51,9 +50,8 @@ public:
 
 }; // class swk::reducer
 
-} // namespace mr4
 } // namespace swk
 
-#endif /* SWK_MR4_REDUCER_HPP_INCLUDED */
+#endif /* SWK_REDUCER_HPP_INCLUDED */
 
 
