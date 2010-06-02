@@ -68,7 +68,7 @@ public:
 		for (std::vector<std::string>::const_iterator ip = input_paths.begin(); // ip: input path
 		     ip != input_paths.end();
 		     ++ip) {
-			typename FS::ichannel ic(ip->c_str());
+			std::ifstream ic(ip->c_str());
 			mik_type no = 0;
 			miv_type line;
 			while (std::getline(ic, line)) {

@@ -13,9 +13,6 @@ class fs_local
 {
 public:
 
-	typedef std::ifstream ichannel;
-	typedef std::ofstream ochannel;
-
 	static size_t file_length(const std::string& path)
 	{
 		struct stat sb;
