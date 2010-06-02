@@ -20,7 +20,7 @@ public:
 	typedef OV ov_type;
 	typedef bucket<OK, OV> bucket_type;
 
-	reducer_context(const bucket_type& rb)
+	reducer_context(const typename bucket_type::type& rb)
 		: rb_(rb)
 	{
 	}
@@ -30,7 +30,7 @@ public:
 		SWK_DOUT << ov << " <= " << ok;
 	}
 
-	bucket_type::type rb_;
+	typename bucket_type::type rb_;
 
 }; // class swk::reducer_context
 

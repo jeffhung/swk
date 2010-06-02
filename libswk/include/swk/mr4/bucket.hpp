@@ -2,6 +2,7 @@
 #define SWK_MR4_BUCKET_HPP_INCLUDED
 
 #include <vector>
+#include <map>
 
 namespace swk {
 namespace mr4 {

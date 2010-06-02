@@ -18,17 +18,17 @@ public:
 
 	typedef M mapper_type;
 	typedef R reducer_type;
-	typedef M::ik_type mik_type;
-	typedef M::iv_type miv_type;
-	typedef M::ok_type mok_type;
-	typedef M::ov_type mov_type;
-	typedef R::ik_type rik_type;
-	typedef R::iv_type riv_type;
-	typedef R::ok_type rok_type;
-	typedef R::ov_type rov_type;
+	typedef typename M::ik_type mik_type;
+	typedef typename M::iv_type miv_type;
+	typedef typename M::ok_type mok_type;
+	typedef typename M::ov_type mov_type;
+	typedef typename R::ik_type rik_type;
+	typedef typename R::iv_type riv_type;
+	typedef typename R::ok_type rok_type;
+	typedef typename R::ov_type rov_type;
 
-	typedef M::context mc_type;
-	typedef R::context rc_type;
+	typedef typename M::context mc_type;
+	typedef typename R::context rc_type;
 
 //	SWK_STATIC_ASSERT(
 //		swk::and<
@@ -85,11 +85,11 @@ public:
       // propogate serialized mc.mb_ over network and shuffle keys in mc.mb_
       // unserialize to rc.rb_.
 #else
-		typename rc_type::bucket_type rb = mc.mb_; // reducer bucket
+		typename rc_type::bucket_type::type rb = mc.mb_; // reducer bucket
 #endif
 
 		rc_type rc(rb);
-		for (rc_type::bucket_type::type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
+		for (typename rc_type::bucket_type::type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
 		     ri != rc.rb_.end();
 		     ++ri) {
 			reducer_type()(ri->first, ri->second, rc);

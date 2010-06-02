@@ -23,12 +23,12 @@ public:
 
 	void push(const OK& ok, const OV& ov)
 	{
-		std::pair<typename outputs_type::iterator, bool> r
+		std::pair<typename bucket_type::type::iterator, bool> r
 			= mb_.insert(make_pair(ok, typename bucket_type::bvs_type()));
 		r.first->second.push_back(ov);
 	}
 
-	bucket_type::type mb_;
+	typename bucket_type::type mb_;
 
 }; // class swk::mapper_context
 

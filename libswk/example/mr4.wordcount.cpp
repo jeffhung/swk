@@ -1,13 +1,13 @@
-#include <swk/mr2/mapper.hpp>
-#include <swk/mr2/reducer.hpp>
-#include <swk/mr2/job.hpp>
+#include <swk/mr4/mapper.hpp>
+#include <swk/mr4/reducer.hpp>
+#include <swk/mr4/job.hpp>
 #include <swk/fs_local.hpp>
 #include <swk/str_split.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>
 
-struct wordcount_mapper : public swk::mr2::mapper<uint32_t, std::string,
+struct wordcount_mapper : public swk::mr4::mapper<uint32_t, std::string,
                                                   std::string, uint32_t>
 {
 	void operator()(const uint32_t& key,
@@ -26,7 +26,7 @@ struct wordcount_mapper : public swk::mr2::mapper<uint32_t, std::string,
 
 }; // class wordcount
 
-struct wordcount_reducer : public swk::mr2::reducer<std::string, uint32_t,
+struct wordcount_reducer : public swk::mr4::reducer<std::string, uint32_t,
                                                     std::string, uint32_t>
 {
 	void operator()(const std::string& key,
@@ -46,7 +46,7 @@ struct wordcount_reducer : public swk::mr2::reducer<std::string, uint32_t,
 int main()
 {
 	try {
-		typedef swk::mr2::job<wordcount_mapper, wordcount_reducer> job_type;
+		typedef swk::mr4::job<wordcount_mapper, wordcount_reducer> job_type;
 		job_type wc;
 		wc.add_input_path("data1.txt");
 		wc.add_input_path("data2.txt");
