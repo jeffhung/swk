@@ -10,6 +10,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <utility>
 
 namespace swk {
 
@@ -40,14 +41,15 @@ public:
 			std::ifstream ic(path->c_str(), std::ios::binary); // must open in binary mode
 			if ((length > 0) && FT::splittable) {
 				size_t start = 0;
-				while ((length - start) > SWK_BLOCK_SIZE) {
+				do {
 					SWK_DVAR(start);
-					size_t split_size = SWK_BLOCK_SIZE;
+					size_t split_size = std::min<size_t>((length - start), SWK_BLOCK_SIZE);
 					if (!splits.empty()) {
 						size_t boundary = FT::find_boundary(ic, start);
 						if (boundary > start) {
 							SWK_DVAR(boundary);
 							size_t size_move_to_previous_split = boundary - start;
+							SWK_DVAR(size_move_to_previous_split);
 							file_split& last = splits.at(splits.size() - 1);
 							last.extend(size_move_to_previous_split);
 							SWK_DVAR(last.length());
@@ -61,10 +63,7 @@ public:
 						splits.push_back(file_split(*path, start, split_size));
 					}
 					start += split_size;
-				}
-				if (start < length) {
-					splits.push_back(file_split(*path, start, (length - start)));
-				}
+				} while (start < length);
 			}
 			else if (length > 0) {
 				splits.push_back(file_split(*path, 0, length));
