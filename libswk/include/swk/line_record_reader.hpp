@@ -31,22 +31,22 @@ public:
 		if (line_end_ <= line_beg_) {
 			throw std::runtime_error("No current value yet. Please advance() first.");
 		}
-		SWK_DVAR(line_beg_);
-		SWK_DVAR(line_end_);
+//		SWK_DVAR(line_beg_);
+//		SWK_DVAR(line_end_);
 		size_t length = line_end_ - line_beg_;
-		SWK_DVAR(length);
+//		SWK_DVAR(length);
 		boost::io::ios_all_saver ips(ic_);
 		auto_buffer<> buffer(length);
 		ic_.seekg(line_beg_);
 		if (ic_) {
-			SWK_DVAR(line_beg_);
-			SWK_DVAR(line_end_);
-			SWK_DVAR(length);
+//			SWK_DVAR(line_beg_);
+//			SWK_DVAR(line_end_);
+//			SWK_DVAR(length);
 			if (ic_.read(buffer.get(), length)) {
 				std::pair<uint64_t, std::string> c;
 				c.first = line_beg_;
 				c.second = std::string(buffer.get(), length);
-				SWK_DVAR(c.second);
+//				SWK_DVAR(c.second);
 //				std::cerr << "@" << length << "@" << c.second << "||";
 				return c;
 			}
@@ -59,9 +59,9 @@ public:
 		boost::io::ios_all_saver ips(ic_);
 		line_beg_ = line_end_;
 		size_t le = text_file_traits<FS>::find_boundary(ic_, line_beg_);
-		SWK_DVAR(line_beg_);
-		SWK_DVAR(line_end_);
-		SWK_DVAR(le);
+//		SWK_DVAR(line_beg_);
+//		SWK_DVAR(line_end_);
+//		SWK_DVAR(le);
 		if (le <= line_beg_) {
 			return false;
 		}
