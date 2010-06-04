@@ -20,7 +20,7 @@ int main()
 			swk::line_record_reader<> rr(*s);
 			while (rr.advance()) {
 				std::pair<uint64_t, std::string> c = rr.current();
-				std::cout << "[" << c.first << "] " << c.second << std::endl;
+				std::cout << "[" << c.first << "] " << c.second;
 			}
 //			std::cout << *s << std::endl;
 		}
