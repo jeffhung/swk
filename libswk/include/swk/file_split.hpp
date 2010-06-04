@@ -86,7 +86,7 @@ std::ostream& operator << (std::ostream& os, const file_split& s)
 //	char buffer[SWK_BLOCK_SIZE + 10] = { 0 };
 //	char buffer[4096] = { 0 };
 	auto_buffer<> buffer(s.length_ + 1);
-	SWK_DVAR(s.length_);
+//	SWK_DVAR(s.length_);
 	if (ifs.read(buffer.get(), s.length_)) {
 		os << buffer.get() << "||";
 	}

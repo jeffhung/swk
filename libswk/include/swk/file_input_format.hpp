@@ -42,23 +42,23 @@ public:
 			if ((length > 0) && FT::splittable) {
 				size_t start = 0;
 				do {
-					SWK_DVAR(start);
+//					SWK_DVAR(start);
 					size_t split_size = std::min<size_t>((length - start), SWK_BLOCK_SIZE);
 					if (!splits.empty()) {
 						size_t boundary = FT::find_boundary(ic, start);
 						if (boundary > start) {
-							SWK_DVAR(boundary);
+//							SWK_DVAR(boundary);
 							size_t size_move_to_previous_split = boundary - start;
-							SWK_DVAR(size_move_to_previous_split);
+//							SWK_DVAR(size_move_to_previous_split);
 							file_split& last = splits.at(splits.size() - 1);
 							last.extend(size_move_to_previous_split);
-							SWK_DVAR(last.length());
+//							SWK_DVAR(last.length());
 							start = boundary;
 							split_size -= size_move_to_previous_split;
 						}
 					}
-					SWK_DVAR(start);
-					SWK_DVAR(split_size);
+//					SWK_DVAR(start);
+//					SWK_DVAR(split_size);
 					if (split_size > 0) {
 						splits.push_back(file_split(*path, start, split_size));
 					}
