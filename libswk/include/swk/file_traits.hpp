@@ -70,15 +70,18 @@ struct text_file_traits
 		do {
 			std::ifstream::char_type buffer[8];
 			ic.seekg(start);
-			size_t size = ic.readsome(buffer, sizeof(buffer) - 1);
-			buffer[size] = '\0'; // null end it to pass to strstr()
-			for (size_t i = 0; LINE_ENDS[i]; ++i) {
-				char* p = strstr(buffer, LINE_ENDS[i]);
-				if (p) {
-					return start + (p - buffer) + strlen(LINE_ENDS[i]);
+			if (ic) {
+				ic.read(buffer, sizeof(buffer) - 1);
+				size_t size = ic.gcount();
+				buffer[size] = '\0'; // null end it to pass to strstr()
+				for (size_t i = 0; LINE_ENDS[i]; ++i) {
+					char* p = strstr(buffer, LINE_ENDS[i]);
+					if (p) {
+						return start + (p - buffer) + strlen(LINE_ENDS[i]);
+					}
 				}
+				start += size;
 			}
-			start += size;
 		} while (ic);
 		return start;
 	}

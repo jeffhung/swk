@@ -1,8 +1,13 @@
 #ifndef SWK_MISC_HPP_INCLUDED
 #define SWK_MISC_HPP_INCLUDED
 
+#define SWK_USE_BOOST_IO_STATE_SAVER 1
+
 #include <swk/config.hpp>
 #include <swk/fs_local.hpp>
+#if SWK_USE_BOOST_IO_STATE_SAVER
+# include <boost/io/ios_state.hpp>
+#endif // SWK_USE_BOOST_IO_STATE_SAVER
 #include <cstdlib>
 #include <cassert>
 
@@ -49,6 +54,9 @@ private:
 
 }; // class swk::noncopyable
 
+#if SWK_USE_BOOST_IO_STATE_SAVER
+typedef boost::io::ios_all_saver ifstream_position_saver;
+#else // SWK_USE_BOOST_IO_STATE_SAVER
 /**
  * Saves the absolute position of the get pointer of an input channel, and
  * restore when destruct.
@@ -74,6 +82,7 @@ private:
 	std::ifstream::streampos pos_;
 
 }; // class swk::ifstream_position_saver
+#endif // SWK_USE_BOOST_IO_STATE_SAVER
 
 /**
  * The auto_buffer class creates byte buffer which can allocate statically or

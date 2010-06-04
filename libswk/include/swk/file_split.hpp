@@ -21,13 +21,13 @@ public:
 	/**
 	 * Construct a split with host information.
 	 *
-	 * @param path   path of the file in dfs
-	 * @param start  starting position of the bytes in the file to process
+	 * @param p path of the file in dfs
+	 * @param s start position of the bytes in the file to process
 	 * @param l number of the bytes in the file to process
 	 */
-	file_split(const std::string& path, size_t start, size_t l)
-		: path_(path)
-		, start_(start)
+	file_split(const std::string& p, size_t s, size_t l)
+		: path_(p)
+		, start_(s)
 		, length_(l)
 	{
 	}
@@ -54,6 +54,11 @@ public:
 			std::swap(start_, x.start_);
 			std::swap(length_, x.length_);
 		}
+	}
+
+	const std::string& path() const
+	{
+		return path_;
 	}
 
 	size_t length() const
