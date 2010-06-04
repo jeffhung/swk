@@ -3,6 +3,7 @@
 
 #include <swk/config.hpp>
 #include <swk/dtool.hpp>
+#include <swk/misc.hpp>
 #include <string>
 #include <algorithm>
 #include <ostream>
@@ -83,10 +84,11 @@ std::ostream& operator << (std::ostream& os, const file_split& s)
 	std::ifstream ifs(s.path_.c_str());
 	ifs.seekg(s.start_);
 //	char buffer[SWK_BLOCK_SIZE + 10] = { 0 };
-	char buffer[4096] = { 0 };
+//	char buffer[4096] = { 0 };
+	auto_buffer<> buffer(s.length_ + 1);
 	SWK_DVAR(s.length_);
-	if (ifs.read(buffer, s.length_)) {
-		os << buffer << "||";
+	if (ifs.read(buffer.get(), s.length_)) {
+		os << buffer.get() << "||";
 	}
 	return os;
 }
