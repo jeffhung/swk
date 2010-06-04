@@ -2,6 +2,7 @@
 #define SWK_FILE_TRAITS_HPP_INCLUDED
 
 #include <swk/misc.hpp>
+#include <boost/io/ios_state.hpp>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -66,7 +67,7 @@ struct text_file_traits
 	static size_t find_boundary(std::ifstream& ic, size_t start)
 	{
 		static const char* LINE_ENDS[] = { "\x0a", "\x0c", "\x0a\x0c", 0 };
-		ifstream_position_saver ips(ic);
+		boost::io::ios_all_saver ips(ic);
 		do {
 			std::ifstream::char_type buffer[8];
 			ic.seekg(start);

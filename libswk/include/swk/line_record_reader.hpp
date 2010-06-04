@@ -5,6 +5,7 @@
 #include <swk/fs_local.hpp>
 #include <swk/file_traits.hpp>
 #include <swk/misc.hpp>
+#include <boost/io/ios_state.hpp>
 #include <fstream>
 #include <string>
 #include <utility>
@@ -34,7 +35,7 @@ public:
 		SWK_DVAR(line_end_);
 		size_t length = line_end_ - line_beg_;
 		SWK_DVAR(length);
-		ifstream_position_saver ips(ic_);
+		boost::io::ios_all_saver ips(ic_);
 		auto_buffer<> buffer(length);
 		ic_.seekg(line_beg_);
 		if (ic_) {
@@ -55,7 +56,7 @@ public:
 
 	bool advance()
 	{
-		ifstream_position_saver ips(ic_);
+		boost::io::ios_all_saver ips(ic_);
 		line_beg_ = line_end_;
 		size_t le = text_file_traits<FS>::find_boundary(ic_, line_beg_);
 		SWK_DVAR(line_beg_);
