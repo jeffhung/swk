@@ -4,6 +4,8 @@
 #define SWK_VERSION_MAJOR 0
 #define SWK_VERSION_MINOR 1
 
+#define SWK_USE_INPUT_FORMAT 0
+
 //#define SWK_BLOCK_SIZE (64 * 1024 * 1024) // 64MB
 #define SWK_BLOCK_SIZE 256
 

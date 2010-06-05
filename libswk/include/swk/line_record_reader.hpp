@@ -20,8 +20,8 @@ public:
 
 	line_record_reader(const file_split& split)
 		: split_(split)
-		, line_beg_(0)
-		, line_end_(0)
+		, line_beg_(split.start())
+		, line_end_(split.start())
 		, ic_(split.path().c_str(), std::ios::binary)
 	{
 	}
@@ -56,9 +56,14 @@ public:
 
 	bool advance()
 	{
-		boost::io::ios_all_saver ips(ic_);
 		line_beg_ = line_end_;
-		size_t le = text_file_traits<FS>::find_boundary(ic_, line_beg_);
+		if (line_beg_ > split_.end()) {
+			return false;
+		}
+		size_t le = std::min(
+			text_file_traits<FS>::find_boundary(ic_, line_beg_),
+			split_.end()
+		);
 //		SWK_DVAR(line_beg_);
 //		SWK_DVAR(line_end_);
 //		SWK_DVAR(le);

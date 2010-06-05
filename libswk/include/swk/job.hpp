@@ -1,8 +1,13 @@
 #ifndef SWK_JOB_HPP_INCLUDED
 #define SWK_JOB_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <swk/dtool.hpp>
-#include <boost/thread.hpp>
+#if SWK_USE_INPUT_FORMAT
+#include <swk/file_input_format.hpp>
+#include <swk/file_split.hpp>
+#include <swk/line_record_reader.hpp>
+#endif // SWK_USE_INPUT_FORMAT
 #include <string>
 #include <vector>
 #include <stdint.h>
@@ -10,7 +15,14 @@
 
 namespace swk {
 
-template <class M, class R, class FS = fs_local>
+template < class M
+         , class R
+#if SWK_USE_INPUT_FORMAT
+         , class IFMT = file_input_format<>
+#else // !SWK_USE_INPUT_FORMAT
+         , class FS = fs_local
+#endif // SWK_USE_INPUT_FORMAT
+         >
 class job
 {
 public:
@@ -44,7 +56,11 @@ public:
 
 	void add_input_path(const std::string& path)
 	{
+#if SWK_USE_INPUT_FORMAT
+		ifmt_.add_path(path);
+#else // !SWK_USE_INPUT_FORMAT
 		input_paths.push_back(path);
+#endif // SWK_USE_INPUT_FORMAT
 	}
 
 	void set_output_dir(const std::string& dir)
@@ -65,6 +81,22 @@ public:
 	void run()
 	{
 		mc_type mc;
+#if SWK_USE_INPUT_FORMAT
+		std::vector<swk::file_split> splits = ifmt_.list_splits();
+		SWK_DVAR(splits.size());
+		for (std::vector<swk::file_split>::const_iterator s = splits.begin();
+		     s != splits.end();
+		     ++s) {
+			std::cout << *s << std::endl;
+			swk::line_record_reader<> rr(*s);
+			while (rr.advance()) {
+				std::pair<uint64_t, std::string> c = rr.current();
+				std::cout << "[" << c.first << "] " << c.second;
+				mapper_type()(c.first, c.second, mc);
+			}
+//			std::cout << *s << std::endl;
+		}
+#else // !SWK_USE_INPUT_FORMAT
 		for (std::vector<std::string>::const_iterator ip = input_paths.begin(); // ip: input path
 		     ip != input_paths.end();
 		     ++ip) {
@@ -77,7 +109,8 @@ public:
 				mapper_type()(no, line, mc);
 			}
 		}
-		SWK_DMVEC(mc.mb_);
+#endif // SWK_USE_INPUT_FORMAT
+//		SWK_DMVEC(mc.mb_);
 
 #if 0 // TODO:
       // serialize mc.mb_
@@ -97,7 +130,11 @@ public:
 
 private:
 
+#if SWK_USE_INPUT_FORMAT
+	IFMT ifmt_; //!< input format
+#else // !SWK_USE_INPUT_FORMAT
 	std::vector<std::string> input_paths;
+#endif // SWK_USE_INPUT_FORMAT
 	std::string output_dir;
 	size_t num_mappers;
 	size_t num_reducers;

@@ -61,6 +61,16 @@ public:
 		return path_;
 	}
 
+	size_t start() const
+	{
+		return start_;
+	}
+
+	size_t end() const
+	{
+		return start_ + length_;
+	}
+
 	size_t length() const
 	{
 		return length_;

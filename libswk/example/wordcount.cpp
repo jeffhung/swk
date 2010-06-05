@@ -14,12 +14,12 @@ struct wordcount_mapper : public swk::mapper<uint32_t, std::string,
 	                const std::string& value,
 	                context& ctx)
 	{
-		SWK_DOUT << value;
+//		SWK_DVAR(value);
 		std::vector<std::string> tokens = swk::str_split(value);
 		for (std::vector<std::string>::const_iterator it = tokens.begin();
 		     it != tokens.end();
 		     ++it) {
-			SWK_DVAR(*it);
+//			SWK_DVAR(*it);
 			ctx.push(*it, uint32_t(1));
 		}
 	}
