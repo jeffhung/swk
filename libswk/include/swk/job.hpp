@@ -3,11 +3,9 @@
 
 #include <swk/config.hpp>
 #include <swk/dtool.hpp>
-#if SWK_USE_INPUT_FORMAT
-# include <swk/file_input.hpp>
-# include <swk/file_split.hpp>
-# include <swk/line_record_reader.hpp>
-#endif // SWK_USE_INPUT_FORMAT
+#include <swk/file_input.hpp>
+#include <swk/file_split.hpp>
+#include <swk/line_record_reader.hpp>
 #if SWK_USE_OUTPUT_FORMAT
 # include <swk/file_output.hpp>
 # include <memory>
@@ -21,11 +19,7 @@ namespace swk {
 
 template < class M
          , class R
-#if SWK_USE_INPUT_FORMAT
          , class IFMT = file_input<>
-#else // !SWK_USE_INPUT_FORMAT
-         , class FS = fs_local
-#endif // SWK_USE_INPUT_FORMAT
 #if SWK_USE_OUTPUT_FORMAT
          , class OFMT = file_output<>
 #endif // SWK_USE_OUTPUT_FORMAT
@@ -63,11 +57,7 @@ public:
 
 	void add_input_path(const std::string& path)
 	{
-#if SWK_USE_INPUT_FORMAT
 		ifmt_.add_path(path);
-#else // !SWK_USE_INPUT_FORMAT
-		input_paths.push_back(path);
-#endif // SWK_USE_INPUT_FORMAT
 	}
 
 	void set_output_dir(const std::string& dir)
@@ -92,7 +82,6 @@ public:
 	void run()
 	{
 		mc_type mc;
-#if SWK_USE_INPUT_FORMAT
 		std::vector<swk::file_split> splits = ifmt_.list_splits();
 		SWK_DVAR(splits.size());
 		for (std::vector<swk::file_split>::const_iterator s = splits.begin();
@@ -107,20 +96,6 @@ public:
 			}
 //			std::cout << *s << std::endl;
 		}
-#else // !SWK_USE_INPUT_FORMAT
-		for (std::vector<std::string>::const_iterator ip = input_paths.begin(); // ip: input path
-		     ip != input_paths.end();
-		     ++ip) {
-			std::ifstream ic(ip->c_str());
-			mik_type no = 0;
-			miv_type line;
-			while (std::getline(ic, line)) {
-				SWK_DOUT << line;
-				++no;
-				mapper_type()(no, line, mc);
-			}
-		}
-#endif // SWK_USE_INPUT_FORMAT
 //		SWK_DMVEC(mc.mb_);
 
 #if 0 // TODO:
@@ -145,11 +120,7 @@ public:
 
 private:
 
-#if SWK_USE_INPUT_FORMAT
 	IFMT ifmt_; //!< input format
-#else // !SWK_USE_INPUT_FORMAT
-	std::vector<std::string> input_paths;
-#endif // SWK_USE_INPUT_FORMAT
 #if SWK_USE_OUTPUT_FORMAT
 	OFMT ofmt_; //!< output format
 #else // !SWK_USE_OUTPUT_FORMAT
