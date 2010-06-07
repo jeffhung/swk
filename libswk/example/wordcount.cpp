@@ -51,6 +51,7 @@ int main()
 		wc.add_input_path("data1.txt");
 		wc.add_input_path("data2.txt");
 		wc.add_input_path("data3.txt");
+		wc.add_input_path("hbase-overview.txt");
 		wc.set_output_dir("output");
 		wc.run();
 		return 0;

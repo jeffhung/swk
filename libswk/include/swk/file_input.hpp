@@ -44,7 +44,8 @@ public:
 				do {
 //					SWK_DVAR(start);
 					size_t split_size = std::min<size_t>((length - start), SWK_BLOCK_SIZE);
-					if (!splits.empty()) {
+					if (!splits.empty() &&
+					    (splits.at(splits.size() - 1).path() == *path)) {
 						size_t boundary = FT::find_boundary(ic, start);
 						if (boundary > start) {
 //							SWK_DVAR(boundary);
