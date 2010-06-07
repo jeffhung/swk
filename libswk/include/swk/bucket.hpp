@@ -1,6 +1,7 @@
 #ifndef SWK_BUCKET_HPP_INCLUDED
 #define SWK_BUCKET_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <vector>
 #include <map>
 

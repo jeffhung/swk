@@ -1,6 +1,7 @@
 #ifndef SWK_FILE_TRAITS_HPP_INCLUDED
 #define SWK_FILE_TRAITS_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <swk/misc.hpp>
 #include <boost/io/ios_state.hpp>
 #include <string>

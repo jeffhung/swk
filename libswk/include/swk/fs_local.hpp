@@ -1,6 +1,7 @@
 #ifndef SWK_FS_LOCAL_HPP_INCLUDED
 #define SWK_FS_LOCAL_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <fstream>
 #include <string>
 #include <vector>

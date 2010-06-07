@@ -1,6 +1,7 @@
 #ifndef SWK_DTOOL_HPP_INCLUDED
 #define SWK_DTOOL_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <iostream>
 #include <sstream>
 #include <vector>

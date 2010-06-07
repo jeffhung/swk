@@ -1,6 +1,7 @@
 #ifndef SWK_REDUCER_HPP_INCLUDED
 #define SWK_REDUCER_HPP_INCLUDED
 
+#include <swk/config.hpp>
 #include <swk/dtool.hpp>
 #include <swk/fs_local.hpp>
 #include <swk/bucket.hpp>
