@@ -18,9 +18,9 @@ public:
 	typedef IV iv_type;
 	typedef OK ok_type;
 	typedef OV ov_type;
-	typedef bucket<OK, OV> bucket_type;
+	typedef typename bucket_map<OK, OV>::type bucket_type;
 
-	reducer_context(const typename bucket_type::type& rb)
+	reducer_context(const bucket_type& rb)
 		: rb_(rb)
 	{
 	}
@@ -30,7 +30,7 @@ public:
 		SWK_DOUT << ov << " <= " << ok;
 	}
 
-	typename bucket_type::type rb_;
+	bucket_type rb_;
 
 }; // class swk::reducer_context
 

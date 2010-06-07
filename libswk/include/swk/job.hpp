@@ -117,11 +117,11 @@ public:
       // propogate serialized mc.mb_ over network and shuffle keys in mc.mb_
       // unserialize to rc.rb_.
 #else
-		typename rc_type::bucket_type::type rb = mc.mb_; // reducer bucket
+		typename rc_type::bucket_type rb = mc.mb_; // reducer bucket
 #endif
 
 		rc_type rc(rb);
-		for (typename rc_type::bucket_type::type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
+		for (typename rc_type::bucket_type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
 		     ri != rc.rb_.end();
 		     ++ri) {
 			reducer_type()(ri->first, ri->second, rc);

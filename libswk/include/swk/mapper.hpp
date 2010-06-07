@@ -19,16 +19,20 @@ public:
 	typedef IV iv_type;
 	typedef OK ok_type;
 	typedef OV ov_type;
-	typedef bucket<OK, OV> bucket_type;
+	typedef typename bucket_map<OK, OV>::type bucket_type;
 
 	void push(const OK& ok, const OV& ov)
 	{
-		std::pair<typename bucket_type::type::iterator, bool> r
-			= mb_.insert(make_pair(ok, typename bucket_type::bvs_type()));
+#if 0
+		std::pair<typename bucket_type::iterator, bool> r
+			= mb_.insert(std::make_pair(ok, typename bucket_type::mapped_type()));
 		r.first->second.push_back(ov);
+#else
+		mb_[ok].push_back(ov);
+#endif
 	}
 
-	typename bucket_type::type mb_;
+	bucket_type mb_;
 
 }; // class swk::mapper_context
 
