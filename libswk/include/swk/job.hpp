@@ -6,10 +6,8 @@
 #include <swk/file_input.hpp>
 #include <swk/file_split.hpp>
 #include <swk/line_record_reader.hpp>
-#if SWK_USE_OUTPUT_FORMAT
-# include <swk/file_output.hpp>
-# include <memory>
-#endif // SWK_USE_OUTPUT_FORMAT
+#include <swk/file_output.hpp>
+#include <memory>
 #include <string>
 #include <vector>
 #include <stdint.h>
@@ -20,9 +18,7 @@ namespace swk {
 template < class M
          , class R
          , class IFMT = file_input<>
-#if SWK_USE_OUTPUT_FORMAT
          , class OFMT = file_output<>
-#endif // SWK_USE_OUTPUT_FORMAT
          >
 class job
 {
@@ -62,11 +58,7 @@ public:
 
 	void set_output_dir(const std::string& dir)
 	{
-#if SWK_USE_OUTPUT_FORMAT
 		ofmt_.set_path(dir);
-#else // !SWK_USE_OUTPUT_FORMAT
-		output_dir = dir;
-#endif // SWK_USE_OUTPUT_FORMAT
 	}
 
 	void set_num_mappers(size_t nm)
@@ -105,11 +97,7 @@ public:
 #else
 		typename rc_type::bucket_type rb = mc.mb_; // reducer bucket
 #endif
-#if SWK_USE_OUTPUT_FORMAT
 		rc_type rc(rb, ofmt_);
-#else // !SWK_USE_OUTPUT_FORMAT
-		rc_type rc(rb);
-#endif // SWK_USE_OUTPUT_FORMAT
 
 		for (typename rc_type::bucket_type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
 		     ri != rc.rb_.end();
@@ -121,11 +109,7 @@ public:
 private:
 
 	IFMT ifmt_; //!< input format
-#if SWK_USE_OUTPUT_FORMAT
 	OFMT ofmt_; //!< output format
-#else // !SWK_USE_OUTPUT_FORMAT
-	std::string output_dir;
-#endif // SWK_USE_OUTPUT_FORMAT
 	size_t num_mappers;
 	size_t num_reducers;
 
