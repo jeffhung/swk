@@ -1,5 +1,5 @@
-#ifndef SWK_FILE_INPUT_FORMAT_HPP_INCLUDED
-#define SWK_FILE_INPUT_FORMAT_HPP_INCLUDED
+#ifndef SWK_FILE_INPUT_HPP_INCLUDED
+#define SWK_FILE_INPUT_HPP_INCLUDED
 
 #include <swk/config.hpp>
 #include <swk/file_traits.hpp>
@@ -18,7 +18,7 @@ namespace swk {
  * A section of an input file.
  */
 template <class FS = fs_local, class FT = text_file_traits<FS> >
-class file_input_format
+class file_input
 {
 public:
 
@@ -81,10 +81,10 @@ private:
 
 	std::vector<std::string> paths_;
 
-}; // class swk::file_input_format<>
+}; // class swk::file_input<>
 
 } // namespace swk
 
-#endif /* SWK_FILE_INPUT_FORMAT_HPP_INCLUDED */
+#endif /* SWK_FILE_INPUT_HPP_INCLUDED */
 
 

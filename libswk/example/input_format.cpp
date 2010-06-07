@@ -1,4 +1,4 @@
-#include <swk/file_input_format.hpp>
+#include <swk/file_input.hpp>
 #include <swk/file_split.hpp>
 #include <swk/line_record_reader.hpp>
 #include <vector>
@@ -7,7 +7,7 @@
 int main()
 {
 	try {
-		swk::file_input_format<> iformat;
+		swk::file_input<> iformat;
 		iformat.add_path("data1.txt");
 //		iformat.add_path("data2.txt");
 //		iformat.add_path("data3.txt");

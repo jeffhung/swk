@@ -4,7 +4,7 @@
 #include <swk/config.hpp>
 #include <swk/dtool.hpp>
 #if SWK_USE_INPUT_FORMAT
-#include <swk/file_input_format.hpp>
+#include <swk/file_input.hpp>
 #include <swk/file_split.hpp>
 #include <swk/line_record_reader.hpp>
 #endif // SWK_USE_INPUT_FORMAT
@@ -18,7 +18,7 @@ namespace swk {
 template < class M
          , class R
 #if SWK_USE_INPUT_FORMAT
-         , class IFMT = file_input_format<>
+         , class IFMT = file_input<>
 #else // !SWK_USE_INPUT_FORMAT
          , class FS = fs_local
 #endif // SWK_USE_INPUT_FORMAT
