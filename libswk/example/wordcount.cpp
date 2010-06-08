@@ -2,7 +2,7 @@
 #include <swk/reducer.hpp>
 #include <swk/job.hpp>
 #include <swk/fs_local.hpp>
-#include <swk/str_split.hpp>
+#include <swk/str_tool.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>
@@ -15,7 +15,7 @@ struct wordcount_mapper : public swk::mapper<uint32_t, std::string,
 	                context& ctx)
 	{
 //		SWK_DVAR(value);
-		std::vector<std::string> tokens = swk::str_split(value);
+		std::vector<std::string> tokens = swk::str_tokenize(value);
 		for (std::vector<std::string>::const_iterator it = tokens.begin();
 		     it != tokens.end();
 		     ++it) {

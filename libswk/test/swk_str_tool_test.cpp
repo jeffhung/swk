@@ -1,5 +1,5 @@
 #include <swk/config.hpp>
-#include <swk/str_split.hpp>
+#include <swk/str_tool.hpp>
 #include <swk/dtool.hpp>
 #include <string>
 #include <vector>
@@ -9,7 +9,7 @@ const char* text1 = "WordCount example reads text files and counts how often wor
 
 int main()
 {
-	std::vector<std::string> tokens = swk::str_split(text1);
+	std::vector<std::string> tokens = swk::str_tokenize(text1);
 	for (std::vector<std::string>::const_iterator it = tokens.begin();
 	     it != tokens.end();
 	     ++it) {

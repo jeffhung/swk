@@ -2,7 +2,7 @@
 #include <swk/mr2/reducer.hpp>
 #include <swk/mr2/job.hpp>
 #include <swk/fs_local.hpp>
-#include <swk/str_split.hpp>
+#include <swk/str_tool.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>
@@ -17,7 +17,7 @@ public:
 	                context& ctx)
 	{
 		SWK_DOUT << value;
-		std::vector<std::string> tokens = swk::str_split(value);
+		std::vector<std::string> tokens = swk::str_tokenize(value);
 		for (std::vector<std::string>::const_iterator it = tokens.begin();
 		     it != tokens.end();
 		     ++it) {

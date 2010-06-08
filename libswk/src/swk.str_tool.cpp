@@ -1,5 +1,5 @@
 #include <swk/config.hpp>
-#include <swk/str_split.hpp>
+#include <swk/str_tool.hpp>
 #include <swk/dtool.hpp>
 #include <string>
 #include <vector>
@@ -8,7 +8,7 @@
 
 namespace swk {
 
-std::vector<std::string> str_split(const std::string& s)
+std::vector<std::string> str_tokenize(const std::string& s)
 {
 	std::vector<std::string> tokens;
 	std::istringstream iss(s);
