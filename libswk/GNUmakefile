@@ -145,19 +145,20 @@ LDFLAGS_LIBS     =#
 ifeq ($(UNAME),FreeBSD)
 LDFLAGS_LIB_DIRS += /usr/lib
 LDFLAGS_LIBS     += kvm
-endif
-ifeq ($(UNAME),FreeBSD)
 LDFLAGS_LIB_DIRS += /usr/local/lib
 LDFLAGS_LIBS     += iconv
+LDFLAGS_LIBS     += boost_thread-mt
 endif
 ifeq ($(UNAME),Darwin)
 LDFLAGS_LIB_DIRS += /usr/lib
 LDFLAGS_LIBS     += iconv
 LDFLAGS_LIB_DIRS += /opt/local/lib
+LDFLAGS_LIBS     += boost_thread-mt
 endif
 ifeq ($(UNAME),windows32)
 LDFLAGS_LIB_DIRS += "$ProgramFiles\GnuWin32\lib"
 LDFLAGS_LIBS     += iconv
+LDFLAGS_LIBS     += boost_thread-mt
 endif
 
 CC       ?= gcc

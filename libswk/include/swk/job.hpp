@@ -44,6 +44,9 @@
 #include <swk/file_split.hpp>
 #include <swk/line_record_reader.hpp>
 #include <swk/file_output.hpp>
+#include <swk/misc.hpp>
+#include <boost/thread.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <memory>
 #include <string>
 #include <vector>
@@ -108,13 +111,69 @@ public:
 		num_reducers = nr;
 	}
 
+	struct map_task_queue
+	{
+		map_task_queue(IFMT& ifmt)
+			: splits(ifmt.list_splits())
+			, next(0)
+		{
+		}
+
+		std::vector<swk::file_split> splits;
+		std::vector<swk::file_split>::size_type next;
+		mc_type mc;
+		boost::mutex mx; //!< protects this queue
+	};
+
+	struct mapper_thread
+	{
+		void operator()(map_task_queue* pmtq) const
+		{
+			// create random generator
+			boost_random random_wait(80, 120);
+
+			while (true) {
+				std::auto_ptr<swk::file_split> s;
+				{
+					boost::lock_guard<boost::mutex> lg(pmtq->mx);
+					if (!pmtq->splits.empty()) {
+						s.reset(new swk::file_split(pmtq->splits.at(pmtq->next++)));
+					}
+				}
+				if (!s.get()) {
+					break; // while
+				}
+				std::cerr << *s << std::endl;
+				swk::line_record_reader<> rr(*s);
+				while (rr.advance()) {
+					std::pair<uint64_t, std::string> c = rr.current();
+					std::cout << "[" << c.first << "] " << c.second;
+					{
+						boost::lock_guard<boost::mutex> lg(pmtq->mx);
+						mapper_type()(c.first, c.second, pmtq->mc);
+					}
+				}
+
+				// pause a while randomly
+//				boost::this_thread::sleep(boost::posix_time::millisec(random_wait()));
+			}
+		}
+	};
+
 	void run()
 	{
-		mc_type mc;
-		std::vector<swk::file_split> splits = ifmt_.list_splits();
-		SWK_DVAR(splits.size());
-		for (std::vector<swk::file_split>::const_iterator s = splits.begin();
-		     s != splits.end();
+		map_task_queue mtq(ifmt_); // splits queue
+		SWK_DVAR(mtq.splits.size());
+
+		boost::thread_group mapper_threads;
+		for (size_t nm = 0; nm < num_mappers; ++nm) {
+			mapper_threads.add_thread(new boost::thread(mapper_thread(), &mtq));
+		}
+		mapper_threads.join_all();
+
+#if 0
+		for (std::vector<swk::file_split>::const_iterator s = mtq.splits.begin();
+		     s != mtq.splits.end();
 		     ++s) {
 			std::cout << *s << std::endl;
 			swk::line_record_reader<> rr(*s);
@@ -126,20 +185,24 @@ public:
 //			std::cout << *s << std::endl;
 		}
 //		SWK_DMVEC(mc.mb_);
+#endif
 
+		{
+			boost::lock_guard<boost::mutex> lg(mtq.mx);
 #if 0 // TODO:
       // serialize mc.mb_
       // propogate serialized mc.mb_ over network and shuffle keys in mc.mb_
       // unserialize to rc.rb_.
 #else
-		typename rc_type::bucket_type rb = mc.mb_; // reducer bucket
+			typename rc_type::bucket_type rb = mtq.mc.mb_; // reducer bucket
 #endif
-		rc_type rc(rb, ofmt_);
+			rc_type rc(rb, ofmt_);
 
-		for (typename rc_type::bucket_type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
-		     ri != rc.rb_.end();
-		     ++ri) {
-			reducer_type()(ri->first, ri->second, rc);
+			for (typename rc_type::bucket_type::const_iterator ri = rc.rb_.begin(); // ri: reducer input (entry)
+			     ri != rc.rb_.end();
+			     ++ri) {
+				reducer_type()(ri->first, ri->second, rc);
+			}
 		}
 	}
 

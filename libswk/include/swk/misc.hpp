@@ -40,6 +40,9 @@
 
 #include <swk/config.hpp>
 #include <swk/fs_local.hpp>
+#pragma GCC diagnostic ignored "-Wshadow"
+#include <boost/random.hpp>
+#pragma GCC diagnostic warning "-Wshadow"
 #include <cstdlib>
 #include <cassert>
 
@@ -225,6 +228,38 @@ private:
 	byte_type  sbuf_[StaticBytes]; //!< static allocated buffer, used when size_ is small enough
 
 }; // class swk::auto_buffer
+
+/**
+ * Wraps Boost.Random to make it easier to use.
+ */
+class boost_random
+{
+private:
+
+	typedef boost::mt19937       engine_type;
+	typedef boost::uniform_int<> distribution_type;
+
+public:
+
+	boost_random(int min, int max)
+		: engine_(std::time(0))
+		, distribution_(min, max)
+		, generator_(engine_, distribution_)
+	{
+	}
+
+	int operator()() const
+	{
+		return generator_();
+	}
+
+private:
+
+	mutable engine_type engine_;
+	mutable distribution_type distribution_;
+	mutable boost::variate_generator<engine_type&, distribution_type> generator_;
+
+}; // class boost_random
 
 } // namespace swk
 
