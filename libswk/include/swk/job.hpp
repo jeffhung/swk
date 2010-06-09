@@ -46,12 +46,12 @@
 #include <swk/file_output.hpp>
 #include <swk/misc.hpp>
 #include <boost/thread.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
 #include <memory>
 #include <string>
 #include <vector>
 #include <stdint.h>
 #include <iostream>
+#include <stdexcept>
 
 namespace swk {
 
@@ -125,67 +125,69 @@ public:
 		boost::mutex mx; //!< protects this queue
 	};
 
+#if SWK_USE_THREADED_MAPPER
 	struct mapper_thread
 	{
 		void operator()(map_task_queue* pmtq) const
 		{
-			// create random generator
-			boost_random random_wait(80, 120);
-
-			while (true) {
-				std::auto_ptr<swk::file_split> s;
-				{
-					boost::lock_guard<boost::mutex> lg(pmtq->mx);
-					if (!pmtq->splits.empty()) {
-						s.reset(new swk::file_split(pmtq->splits.at(pmtq->next++)));
-					}
-				}
-				if (!s.get()) {
-					break; // while
-				}
-				std::cerr << *s << std::endl;
-				swk::line_record_reader<> rr(*s);
-				while (rr.advance()) {
-					std::pair<uint64_t, std::string> c = rr.current();
-					std::cout << "[" << c.first << "] " << c.second;
+			try {
+				while (true) {
+					std::auto_ptr<swk::file_split> s;
 					{
 						boost::lock_guard<boost::mutex> lg(pmtq->mx);
-						mapper_type()(c.first, c.second, pmtq->mc);
+						if (pmtq->next < pmtq->splits.size()) {
+							s.reset(new swk::file_split(pmtq->splits.at(pmtq->next++)));
+						}
 					}
+					if (!s.get()) {
+						break; // while
+					}
+//					std::cerr << *s << std::endl;
+					swk::line_record_reader<> rr(*s);
+					while (rr.advance()) {
+						std::pair<uint64_t, std::string> c = rr.current();
+//						std::cout << "[" << c.first << "] " << c.second;
+						{
+							boost::lock_guard<boost::mutex> lg(pmtq->mx);
+							mapper_type()(c.first, c.second, pmtq->mc);
+						}
+					}
+					// We do not randomly wait here.
 				}
-
-				// pause a while randomly
-//				boost::this_thread::sleep(boost::posix_time::millisec(random_wait()));
+			}
+			catch (const std::exception& e) {
+				std::cerr << "Exception thrown from thread function: " << e.what() << std::endl;
+			}
+			catch (...) {
+				std::cerr << "Exception thrown from thread function." << std::endl;
 			}
 		}
 	};
+#endif // SWK_USE_THREADED_MAPPER
 
 	void run()
 	{
 		map_task_queue mtq(ifmt_); // splits queue
 		SWK_DVAR(mtq.splits.size());
 
+#if SWK_USE_THREADED_MAPPER
 		boost::thread_group mapper_threads;
 		for (size_t nm = 0; nm < num_mappers; ++nm) {
 			mapper_threads.add_thread(new boost::thread(mapper_thread(), &mtq));
 		}
+		SWK_DVAR(mapper_threads.size());
 		mapper_threads.join_all();
-
-#if 0
-		for (std::vector<swk::file_split>::const_iterator s = mtq.splits.begin();
-		     s != mtq.splits.end();
-		     ++s) {
-			std::cout << *s << std::endl;
-			swk::line_record_reader<> rr(*s);
+#else // !SWK_USE_THREADED_MAPPER
+		if (mtq.next < mtq.splits.size()) {
+			swk::file_split& s = mtq.splits.at(mtq.next++);
+			swk::line_record_reader<> rr(s);
 			while (rr.advance()) {
 				std::pair<uint64_t, std::string> c = rr.current();
-				std::cout << "[" << c.first << "] " << c.second;
-				mapper_type()(c.first, c.second, mc);
+//				std::cout << "[" << c.first << "] " << c.second;
+				mapper_type()(c.first, c.second, mtq.mc);
 			}
-//			std::cout << *s << std::endl;
 		}
-//		SWK_DMVEC(mc.mb_);
-#endif
+#endif // SWK_USE_THREADED_MAPPER
 
 		{
 			boost::lock_guard<boost::mutex> lg(mtq.mx);
