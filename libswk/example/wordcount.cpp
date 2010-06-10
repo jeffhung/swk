@@ -44,10 +44,10 @@
 #include <vector>
 #include <stdint.h>
 
-struct wordcount_mapper : public swk::mapper<uint32_t, std::string,
-                                             std::string, uint32_t>
+struct wordcount_mapper : public swk::mapper<uint64_t, std::string,
+                                             std::string, uint64_t>
 {
-	void operator()(const uint32_t& key,
+	void operator()(const uint64_t& key,
 	                const std::string& value,
 	                context& ctx)
 	{
@@ -57,21 +57,21 @@ struct wordcount_mapper : public swk::mapper<uint32_t, std::string,
 		     it != tokens.end();
 		     ++it) {
 //			SWK_DVAR(*it);
-			ctx.push(*it, uint32_t(1));
+			ctx.push(*it, uint64_t(1));
 		}
 	}
 
 }; // class wordcount
 
-struct wordcount_reducer : public swk::reducer<std::string, uint32_t,
-                                               std::string, uint32_t>
+struct wordcount_reducer : public swk::reducer<std::string, uint64_t,
+                                               std::string, uint64_t>
 {
 	void operator()(const std::string& key,
-	                const std::vector<uint32_t>& values,
+	                const std::vector<uint64_t>& values,
 	                context& ctx)
 	{
-		uint32_t sum = 0;
-		for (std::vector<uint32_t>::const_iterator it = values.begin();
+		uint64_t sum = 0;
+		for (std::vector<uint64_t>::const_iterator it = values.begin();
 		     it != values.end();
 		     ++it) {
 			sum += *it;

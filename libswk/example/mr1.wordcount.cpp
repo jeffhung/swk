@@ -44,17 +44,17 @@
 #include <vector>
 #include <stdint.h>
 
-class wordcount_mapper : swk::mr1::mapper<uint32_t, std::string,
-                                          std::string, uint32_t,
+class wordcount_mapper : swk::mr1::mapper<uint64_t, std::string,
+                                          std::string, uint64_t,
                                           swk::fs_local>
 {
 public:
 
-	typedef swk::mr1::mapper<uint32_t, std::string,
-	                         std::string, uint32_t,
+	typedef swk::mr1::mapper<uint64_t, std::string,
+	                         std::string, uint64_t,
 	                         swk::fs_local>::context context;
 
-	void map(const uint32_t& key,
+	void map(const uint64_t& key,
 	         const std::string& value,
 	         context& ctx)
 	{
@@ -64,28 +64,28 @@ public:
 		     it != tokens.end();
 		     ++it) {
 			SWK_DVAR(*it);
-			ctx.push(*it, uint32_t(1));
+			ctx.push(*it, uint64_t(1));
 		}
 	}
 
 }; // class wordcount
 
-class wordcount_reducer : swk::mr1::reducer<std::string, uint32_t,
-                                            std::string, uint32_t,
+class wordcount_reducer : swk::mr1::reducer<std::string, uint64_t,
+                                            std::string, uint64_t,
                                             swk::fs_local>
 {
 public:
 
-	typedef swk::mr1::reducer<std::string, uint32_t,
-	                          std::string, uint32_t,
+	typedef swk::mr1::reducer<std::string, uint64_t,
+	                          std::string, uint64_t,
 	                          swk::fs_local>::context context;
 
 	void reduce(const std::string& key,
-	            const std::vector<uint32_t>& values,
+	            const std::vector<uint64_t>& values,
 	            context& ctx)
 	{
-		uint32_t sum = 0;
-		for (std::vector<uint32_t>::const_iterator it = values.begin();
+		uint64_t sum = 0;
+		for (std::vector<uint64_t>::const_iterator it = values.begin();
 		     it != values.end();
 		     ++it) {
 			sum += *it;

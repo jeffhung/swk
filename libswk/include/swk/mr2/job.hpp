@@ -71,7 +71,7 @@ public:
 		     ++ip) {
 			std::ifstream ic(ip->c_str());
 			std::string line;
-			uint32_t no = 0;
+			uint64_t no = 0;
 			while (std::getline(ic, line)) {
 				SWK_DOUT << line;
 				++no;

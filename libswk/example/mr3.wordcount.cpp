@@ -44,8 +44,8 @@
 #include <vector>
 #include <stdint.h>
 
-void wordcount_mapper(const uint32_t& key, const std::string& value,
-//                      swk::mr3::mapper_context<uint32_t, std::string, std::string, uint32_t>& ctx)
+void wordcount_mapper(const uint64_t& key, const std::string& value,
+//                      swk::mr3::mapper_context<uint64_t, std::string, std::string, uint64_t>& ctx)
                       swk::mr3::mapper_context& ctx)
 {
 	SWK_DOUT << value;
@@ -54,16 +54,16 @@ void wordcount_mapper(const uint32_t& key, const std::string& value,
 	     it != tokens.end();
 	     ++it) {
 		SWK_DVAR(*it);
-		ctx.push(*it, uint32_t(1));
+		ctx.push(*it, uint64_t(1));
 	}
 }
 
-void wordcount_reducer(const std::string& key, const std::vector<uint32_t>& values,
-//                       swk::mr3::reducer_context<std::string, uint32_t, std::string, uint32_t>& ctx)
+void wordcount_reducer(const std::string& key, const std::vector<uint64_t>& values,
+//                       swk::mr3::reducer_context<std::string, uint64_t, std::string, uint64_t>& ctx)
                        swk::mr3::reducer_context& ctx)
 {
-	uint32_t sum = 0;
-	for (std::vector<uint32_t>::const_iterator it = values.begin();
+	uint64_t sum = 0;
+	for (std::vector<uint64_t>::const_iterator it = values.begin();
 	     it != values.end();
 	     ++it) {
 		sum += *it;
@@ -74,7 +74,7 @@ void wordcount_reducer(const std::string& key, const std::vector<uint32_t>& valu
 int main()
 {
 	try {
-		std::auto_ptr<swk::mr3::job> wc(swk::mr3::make_job<uint32_t, std::string, std::string, uint32_t>(
+		std::auto_ptr<swk::mr3::job> wc(swk::mr3::make_job<uint64_t, std::string, std::string, uint64_t>(
 			wordcount_mapper, wordcount_reducer
 		));
 		wc->add_input_path("data1.txt");
