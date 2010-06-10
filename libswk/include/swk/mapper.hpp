@@ -48,32 +48,6 @@
 namespace swk {
 
 template <class IK, class IV, class OK, class OV>
-class mapper_context
-{
-public:
-
-	typedef IK ik_type;
-	typedef IV iv_type;
-	typedef OK ok_type;
-	typedef OV ov_type;
-	typedef typename bucket_map<OK, OV>::type bucket_type;
-
-	void push(const OK& ok, const OV& ov)
-	{
-#if 0
-		std::pair<typename bucket_type::iterator, bool> r
-			= mb_.insert(std::make_pair(ok, typename bucket_type::mapped_type()));
-		r.first->second.push_back(ov);
-#else
-		mb_[ok].push_back(ov);
-#endif
-	}
-
-	bucket_type mb_;
-
-}; // class swk::mapper_context
-
-template <class IK, class IV, class OK, class OV>
 class mapper
 {
 public:
@@ -82,7 +56,18 @@ public:
 	typedef IV iv_type;
 	typedef OK ok_type;
 	typedef OV ov_type;
-	typedef mapper_context<IK, IV, OK, OV> context;
+
+	struct context
+	{
+		typedef typename bucket_map<OK, OV>::type bucket_type;
+		void push(const ok_type& ok, const ov_type& ov)
+		{
+			mb_[ok].push_back(ov);
+		}
+
+		bucket_type mb_;
+
+	}; // struct swk::mapper::context
 
 //	virtual void operator()(const ik_type& key,
 //	                        const iv_type& value,
