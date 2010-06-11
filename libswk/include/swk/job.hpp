@@ -39,7 +39,7 @@
 #define SWK_JOB_HPP_INCLUDED
 
 #include <swk/config.hpp>
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <swk/file_input.hpp>
 #include <swk/file_split.hpp>
 #include <swk/line_record_reader.hpp>

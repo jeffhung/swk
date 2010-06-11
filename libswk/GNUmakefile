@@ -76,7 +76,7 @@ LIBSWK_SRCS += swk.str_tool
 
 LIBSWK_TESTS =#
 LIBSWK_TESTS += swk_config_test
-LIBSWK_TESTS += swk_dtool_test
+LIBSWK_TESTS += swk_debug_tool_test
 LIBSWK_TESTS += swk_str_tool_test
 
 LIBSWK_EXAMPLES =#

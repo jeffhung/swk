@@ -38,7 +38,7 @@
 #ifndef SWK_MR3_REDUCER_CONTEXT_HPP_INCLUDED
 #define SWK_MR3_REDUCER_CONTEXT_HPP_INCLUDED
 
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <swk/fs_local.hpp>
 #include <vector>
 

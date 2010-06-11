@@ -38,7 +38,7 @@
 #ifndef SWK_MR3_JOB_HPP_INCLUDED
 #define SWK_MR3_JOB_HPP_INCLUDED
 
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <swk/fs_local.hpp>
 #include <swk/mr3/mapper_context.hpp>
 #include <swk/mr3/reducer_context.hpp>

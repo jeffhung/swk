@@ -39,7 +39,7 @@
 #define SWK_REDUCER_HPP_INCLUDED
 
 #include <swk/config.hpp>
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <swk/fs_local.hpp>
 #include <swk/bucket.hpp>
 #include <swk/file_output.hpp>

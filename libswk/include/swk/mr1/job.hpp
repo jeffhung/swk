@@ -38,7 +38,7 @@
 #ifndef SWK_MR1_JOB_HPP_INCLUDED
 #define SWK_MR1_JOB_HPP_INCLUDED
 
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <string>
 #include <vector>
 #include <stdint.h>

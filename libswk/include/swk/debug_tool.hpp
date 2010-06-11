@@ -36,7 +36,7 @@
 // ---------------------------------------------------------------------------
 
 #ifndef SWK_DTOOL_HPP_INCLUDED
-#define SWK_DTOOL_HPP_INCLUDED
+#define SWK_DEBUG_TOOL_HPP_INCLUDED
 
 #include <swk/config.hpp>
 #include <iostream>
@@ -139,5 +139,5 @@ void dmvec(const char* name, const std::map<K, std::vector<T> >& m, std::ostream
 
 #define SWK_STATIC_ASSERT(expr)
 
-#endif /* SWK_DTOOL_HPP_INCLUDED */
+#endif /* SWK_DEBUG_TOOL_HPP_INCLUDED */
 

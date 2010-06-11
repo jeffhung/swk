@@ -42,7 +42,7 @@
 #include <swk/file_traits.hpp>
 #include <swk/file_split.hpp>
 #include <swk/fs_local.hpp>
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <string>
 #include <vector>
 #include <algorithm>

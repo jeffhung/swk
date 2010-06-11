@@ -35,7 +35,7 @@
 // revid: "@(#) $Id$"
 // ---------------------------------------------------------------------------
 
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 
 int main()
 {

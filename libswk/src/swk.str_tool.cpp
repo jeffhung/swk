@@ -37,7 +37,7 @@
 
 #include <swk/config.hpp>
 #include <swk/str_tool.hpp>
-#include <swk/dtool.hpp>
+#include <swk/debug_tool.hpp>
 #include <string>
 #include <vector>
 #include <cstring>
