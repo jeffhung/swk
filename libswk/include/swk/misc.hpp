@@ -40,6 +40,7 @@
 
 #include <swk/config.hpp>
 #include <swk/fs_local.hpp>
+#include <boost/utility.hpp>
 #pragma GCC diagnostic ignored "-Wshadow"
 #include <boost/random.hpp>
 #pragma GCC diagnostic warning "-Wshadow"
@@ -47,48 +48,6 @@
 #include <cassert>
 
 namespace swk {
-
-/**
- * Class noncopyable is a base class.  Derive your own class from noncopyable
- * when you want to prohibit copy construction and copy assignment.
- *
- * Some objects, particularly those which hold complex resources like files or
- * network connections, have no sensible copy semantics.  Sometimes there are
- * possible copy semantics, but these would be of very limited usefulness and
- * be very difficult to implement correctly.  Sometimes you're implementing a
- * class that doesn't need to be copied just yet and you don't want to take
- * the time to write the appropriate functions.  Deriving from noncopyable
- * will prevent the otherwise implicitly-generated functions (which don't have
- * the proper semantics) from becoming a trap for other programmers.
- *
- * The traditional way to deal with these is to declare a private copy
- * constructor and copy assignment, and then document why this is done.  But
- * deriving from noncopyable is simpler and clearer, and doesn't require
- * additional documentation.
- *
- * Private copy constructor and copy assignment ensure classes derived from
- * class noncopyable cannot be copied.
- *
- * Adopted from Boost, contributed by Dave Abrahams.
- *
- * @sa http://www.boost.org/libs/utility/utility.htm#Class_noncopyable
- */
-class noncopyable
-{
-protected:
-
-	noncopyable() {}
-	~noncopyable() {}
-
-private:
-
-	// Emphasize the following members are private.  These member function
-	// need not to be implemented.
-	noncopyable(const noncopyable&);
-	const noncopyable& operator=(const noncopyable&);
-
-}; // class swk::noncopyable
-
 
 /**
  * The auto_buffer class creates byte buffer which can allocate statically or
@@ -113,7 +72,7 @@ private:
 template < int StaticBytes = 1024 // in bytes
 //       , class Allocator = std::alloc
          >
-class auto_buffer : private noncopyable
+class auto_buffer : private boost::noncopyable
 {
 public:
 
