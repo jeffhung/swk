@@ -35,7 +35,7 @@
 // revid: "@(#) $Id$"
 // ---------------------------------------------------------------------------
 
-#ifndef SWK_DTOOL_HPP_INCLUDED
+#ifndef SWK_DEBUG_TOOL_HPP_INCLUDED
 #define SWK_DEBUG_TOOL_HPP_INCLUDED
 
 #include <swk/config.hpp>
